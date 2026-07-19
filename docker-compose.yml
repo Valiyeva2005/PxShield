@@ -1,0 +1,46 @@
+version: "3.9"
+
+# PixelShield – Docker Compose
+# Usage:
+#   docker compose run --rm pixelshield encrypt image.png --entropy --histogram
+#   docker compose run --rm pixelshield decrypt output/image.psh
+#   docker compose run --rm pixelshield batch ./images/
+
+services:
+  pixelshield:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: pixelshield:latest
+    container_name: pixelshield
+
+    volumes:
+      # Mount host directories for input images and output files
+      - ./images:/app/images:ro        # read-only input images
+      - ./output:/app/output            # encrypted output
+      - ./logs:/app/logs                # persistent logs
+
+    environment:
+      - PYTHONUNBUFFERED=1
+
+    # Security hardening
+    security_opt:
+      - no-new-privileges:true
+    read_only: false                    # output/ and logs/ need write access
+    cap_drop:
+      - ALL
+    cap_add: []
+
+    # Interactive TTY for password prompts
+    stdin_open: true
+    tty: true
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 512M
+        reservations:
+          memory: 128M

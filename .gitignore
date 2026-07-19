@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.Python
+env/
+venv/
+.venv/
+pip-wheel-metadata/
+
+# Output and logs
+output/
+logs/
+*.psh
+*.sha256
+*.entropy.txt
+*.metadata.json
+*.histogram.png
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Secrets (never commit these)
+.env
+.env.*
+*.key
+*.pem
+*.p12
+secrets.yaml
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Docker
+.dockerignore
+
+# detect-secrets baseline
+.secrets.baseline
